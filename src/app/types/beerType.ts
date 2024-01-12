@@ -7,4 +7,10 @@ export interface IBeerEntity {
     ibu: number, // горечь
     first_brewed: string,
     food_pairing: string[],
+    brewers_tips: string,
+    ingredients: {
+        malt: { name: string }[],
+        hops: { name: string }[],
+        yeast: string
+    }
 }

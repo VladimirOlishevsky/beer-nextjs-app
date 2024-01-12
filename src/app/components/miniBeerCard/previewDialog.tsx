@@ -19,11 +19,17 @@ import {
 interface IPreviewDialogProps extends IBeerEntity { }
 
 export const PreviewDialog = (beerEntity: IPreviewDialogProps) => {
-    const { name, description, image_url, id, abv, first_brewed, food_pairing, ibu } = beerEntity
+    const { name, description } = beerEntity
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Button w={'max-content'} variant='solid' colorScheme='teal' size='sm' onClick={onOpen}>Open preview</Button>
+            <Button w={'max-content'} variant='solid' colorScheme='teal' size='sm'
+                onClick={(e) => {
+                    e.preventDefault();
+                    onOpen()
+                }}>
+                Open preview
+            </Button>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent style={{ maxWidth: 1000, maxHeight: '80%', width: 'max-content' }}>
@@ -50,10 +56,9 @@ export const PreviewDialog = (beerEntity: IPreviewDialogProps) => {
                         </Box>
                         <ModalCloseButton />
                         <Stack>
-                            <CardBody>
-                                <Heading size='md' w={300}>{name}</Heading>
-
-                                <Text py='2' w={300}>
+                            <CardBody w={300} p={0}>
+                                <Heading size='md'>{name}</Heading>
+                                <Text py='2'>
                                     {description}
                                 </Text>
                             </CardBody>

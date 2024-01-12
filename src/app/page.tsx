@@ -1,25 +1,27 @@
-import Image from 'next/image'
-import "./globals.css"
-import { MiniBeerCard } from './components/miniBeerCard/miniBeerCard';
-import { IBeerEntity } from './types/beerType';
+import { BeerBottle } from "./components/bottle/bottle";
+import "./globals.css";
+import {
+    Heading
+} from "@chakra-ui/react"
 
-
-const getData = async (): Promise<IBeerEntity[]> => {
-  const response = await fetch("https://api.punkapi.com/v2/beers?page=7&per_page=25");
-  return response.json()
-} 
 
 const Home = async () => {
-  const data = await getData();
+    return (
+        <div className="main">
+            <div className="bottle-wrapper">
+                <BeerBottle />
+            </div>
+            <div className="home-content-wrapper">
+                <Heading size='md'>
+                    Welcome to the ultimate destination for beer enthusiasts – a virtual haven where the frothy world of craft brews comes alive! Our beer website is more than just a platform; it's a celebration of the art, science, and culture surrounding one of the oldest and most beloved beverages known to humanity – beer.
+                </Heading>
 
-  // console.log(data)
-  return (
-    <div className="main">
-      {data.map(el => (
-        <MiniBeerCard key={el.id} {...el} />
-      ))}
-    </div>
-  )
+                <Heading size='md'>
+                    Dive into a kaleidoscope of flavors as we guide you through an extensive collection of meticulously curated beers from around the globe. Whether you're a seasoned connoisseur or a curious novice, our website caters to all levels of beer appreciation. Explore an array of styles, from hoppy IPAs and robust stouts to refreshing lagers and sour ales. We pride ourselves on offering a diverse selection that mirrors the rich tapestry of the brewing world.
+                </Heading>
+            </div>
+        </div>
+    )
 }
 
 export default Home
