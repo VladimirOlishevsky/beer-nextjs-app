@@ -1,4 +1,5 @@
 'use client';
+import { appStore } from "@/app/store";
 import { IBeerEntity } from "@/app/types/beerType";
 import {
     Button,
@@ -13,12 +14,16 @@ import {
     Card,
     Stack,
     CardBody,
-    Heading
+    Heading,
+    VStack,
+    Flex,
+    useToast
 } from "@chakra-ui/react"
 
 interface IPreviewDialogProps extends IBeerEntity { }
 
 export const PreviewDialog = (beerEntity: IPreviewDialogProps) => {
+    const toast = useToast()
     const { name, description } = beerEntity
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -56,12 +61,33 @@ export const PreviewDialog = (beerEntity: IPreviewDialogProps) => {
                         </Box>
                         <ModalCloseButton />
                         <Stack>
-                            <CardBody w={300} p={0}>
-                                <Heading size='md'>{name}</Heading>
-                                <Text py='2'>
-                                    {description}
-                                </Text>
-                            </CardBody>
+                            <Flex w={300} p={0} h={'100%'} justify={'space-between'} direction={'column'}>
+                                <VStack alignItems={'start'}>
+                                    <Heading size='md'>{name}</Heading>
+                                    <Text py='2'>
+                                        {description}
+                                    </Text>
+                                </VStack>
+                                <Flex w={'100%'} justify={'end'}>
+                                     <Button
+                                    w={'max-content'}
+                                    variant='solid'
+                                    colorScheme='teal'
+                                    size='sm'
+                                    onClick={(e) => {
+                                        appStore.setBeersToFavorite(beerEntity);
+                                        toast({
+                                            title: `Successfully added to favorites!`,
+                                            status: 'success',
+                                            position: 'top',
+                                            isClosable: true,
+                                        })
+                                    }}
+                                >
+                                    add to favorite
+                                </Button>
+                                </Flex>
+                            </Flex>
                         </Stack>
                     </Card>
                 </ModalContent>

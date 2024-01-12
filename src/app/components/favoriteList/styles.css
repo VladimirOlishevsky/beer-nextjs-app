@@ -1,0 +1,38 @@
+.favorites-list-icon-wrapper {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    right: 80px;
+    top: 28px;
+}
+
+.favorites-list-icon {
+    fill: #fff;
+    width: 44px;
+}
+
+.close-icon {
+    width: 16px;
+    height: 16px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.favorites-count {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    position: absolute;
+    background-color: red;
+    top: -6px;
+    right: -4px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 4px 2px;
+    width: 20px;
+    height: 20px;
+}

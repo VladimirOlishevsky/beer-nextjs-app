@@ -10,12 +10,6 @@ import {
     Heading
 } from "@chakra-ui/react";
 
-// export async function generateStaticParams(id: number) {
-//     const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`).then((res) => res.json())
-   
-//     return response
-//   }
-
 const getData = async (id: number): Promise<IBeerEntity[]> => {
     const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
     return response.json()
