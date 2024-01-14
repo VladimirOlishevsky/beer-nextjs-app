@@ -12,5 +12,6 @@ export interface IBeerEntity {
         malt: { name: string }[],
         hops: { name: string }[],
         yeast: string
-    }
+    },
+    inFavorite?: boolean
 }

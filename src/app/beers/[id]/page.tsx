@@ -1,4 +1,5 @@
 'use client';
+import { addCommas } from "@/app/utils/addCommas";
 import { IBeerEntity } from "../../types/beerType";
 import {
     Image,
@@ -9,6 +10,7 @@ import {
     CardBody,
     Heading
 } from "@chakra-ui/react";
+import { AddToFavoriteListButton } from "@/app/components/addToFavoriteListButton/addToFavoriteListButton";
 
 const getData = async (id: number): Promise<IBeerEntity[]> => {
     const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
@@ -21,41 +23,30 @@ type Props = {
     }
 }
 
-const addCommas = <T extends string | { name: string }>(input: T[]): string => {
-    let result = "";
-
-    for (const value of input) {
-        result += typeof value === 'string' ? `${value}, ` : `${value.name}, `;
-    }
-
-    return result.slice(0, -2);
-}
-
 const BeerItemPage = async ({ params: { id } }: Props) => {
     const response = await getData(id);
     const { name, image_url, description, abv, ibu, first_brewed, food_pairing, brewers_tips, ingredients: { hops, malt, yeast } } = response[0];
 
     return (
         <Card
-            direction={{ base: 'column', sm: 'row' }}
             p={8}
             justifyContent={'center'}
         >
-            <Box
-                overflow={'hidden'}
-                w={400}
-                h={600}
-                display={'flex'}
-                justifyContent={'center'}
-            >
-                <Image
-                    maxWidth={'70%'}
-                    objectFit={'contain'}
-                    src={image_url}
-                    alt={name}
-                />
-            </Box>
-            <Stack>
+            <Stack direction={'row'}>
+                <Box
+                    overflow={'hidden'}
+                    w={400}
+                    h={600}
+                    display={'flex'}
+                    justifyContent={'center'}
+                >
+                    <Image
+                        maxWidth={'70%'}
+                        objectFit={'contain'}
+                        src={image_url}
+                        alt={name}
+                    />
+                </Box>
                 <CardBody w={500} p={0}>
                     <Heading size='md'>{name}</Heading>
                     <Box mt={5}>
@@ -97,6 +88,7 @@ const BeerItemPage = async ({ params: { id } }: Props) => {
                     </Box>
                 </CardBody>
             </Stack>
+            <AddToFavoriteListButton beerEntity={response[0]} />
         </Card>
     )
 }

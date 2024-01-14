@@ -1,5 +1,4 @@
 'use client';
-import { appStore } from "@/app/store";
 import { IBeerEntity } from "@/app/types/beerType";
 import {
     Button,
@@ -13,17 +12,15 @@ import {
     Text,
     Card,
     Stack,
-    CardBody,
     Heading,
     VStack,
     Flex,
-    useToast
 } from "@chakra-ui/react"
+import { AddToFavoriteListButton } from "../addToFavoriteListButton/addToFavoriteListButton";
 
 interface IPreviewDialogProps extends IBeerEntity { }
 
 export const PreviewDialog = (beerEntity: IPreviewDialogProps) => {
-    const toast = useToast()
     const { name, description } = beerEntity
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
@@ -68,25 +65,7 @@ export const PreviewDialog = (beerEntity: IPreviewDialogProps) => {
                                         {description}
                                     </Text>
                                 </VStack>
-                                <Flex w={'100%'} justify={'end'}>
-                                     <Button
-                                    w={'max-content'}
-                                    variant='solid'
-                                    colorScheme='teal'
-                                    size='sm'
-                                    onClick={(e) => {
-                                        appStore.setBeersToFavorite(beerEntity);
-                                        toast({
-                                            title: `Successfully added to favorites!`,
-                                            status: 'success',
-                                            position: 'top',
-                                            isClosable: true,
-                                        })
-                                    }}
-                                >
-                                    add to favorite
-                                </Button>
-                                </Flex>
+                                <AddToFavoriteListButton beerEntity={beerEntity} />
                             </Flex>
                         </Stack>
                     </Card>

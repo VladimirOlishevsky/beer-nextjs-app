@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
+import './styles.css'
 import { Header } from './components/header/header';
 import { ChakraProvider } from '@chakra-ui/react'
 

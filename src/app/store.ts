@@ -1,13 +1,13 @@
-import { makeObservable, makeAutoObservable, action, computed, toJS } from "mobx";
+import { makeObservable, makeAutoObservable, action } from "mobx";
 import { IBeerEntity } from "./types/beerType";
 
 interface IAppStoreState {
-    favoriteBeers: IBeerEntity[]
+    favoriteBeers: Map<number, IBeerEntity>
 }
 
 class AppStore {
     state: IAppStoreState = {
-        favoriteBeers: []
+        favoriteBeers: new Map<number, IBeerEntity>()
     };
 
     constructor() {
@@ -18,15 +18,24 @@ class AppStore {
     }
 
     setBeersToFavorite = (value: IBeerEntity): void => {
-        this.state.favoriteBeers = [...this.state.favoriteBeers, value];
+        value = { ...value, inFavorite: true };
+        this.state.favoriteBeers = this.state.favoriteBeers.set(value.id, value) 
     };
 
     removeBeersFromFavorite = (id: number): void => {
-        this.state.favoriteBeers = this.state.favoriteBeers.filter(el => el.id !== id);
+        const res = this.state.favoriteBeers.get(id);
+        if(res) {
+            res.inFavorite = false
+        }
+        this.state.favoriteBeers.delete(id);
     };
 
-    get getFavoritesBeerList() {
-        return this.state.favoriteBeers
+    get getFavoritesBeerList(): IBeerEntity[] {
+        return Array.from(this.state.favoriteBeers.values())
+    }
+
+    checkIsInFavoriteList = (id: number): boolean => {
+        return this.state.favoriteBeers.has(id)
     }
 }
 

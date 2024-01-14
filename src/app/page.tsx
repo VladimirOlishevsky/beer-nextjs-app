@@ -1,5 +1,5 @@
 import { BeerBottle } from "./components/bottle/bottle";
-import "./globals.css";
+import "./styles.css";
 import {
     Heading
 } from "@chakra-ui/react"

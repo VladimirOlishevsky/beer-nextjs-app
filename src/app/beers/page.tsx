@@ -1,4 +1,4 @@
-import "../globals.css"
+import "../styles.css"
 import { MiniBeerCard } from '../components/miniBeerCard/miniBeerCard';
 import { IBeerEntity } from '../types/beerType';
 

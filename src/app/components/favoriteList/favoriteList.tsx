@@ -8,6 +8,8 @@ import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 export const FavoriteList = observer(() => {
+
+    console.log('appStore.getFavoritesBeerList', appStore.getFavoritesBeerList)
     return (
         <Popover>
             <PopoverTrigger>
