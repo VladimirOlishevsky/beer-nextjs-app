@@ -12,16 +12,17 @@ import {
 } from "@chakra-ui/react";
 import { AddToFavoriteListButton } from "@/app/components/addToFavoriteListButton/addToFavoriteListButton";
 
-const getData = async (id: number): Promise<IBeerEntity[]> => {
-    const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
-    return response.json()
-}
-
 type Props = {
     params: {
         id: number
     }
 }
+
+const getData = async (id: number): Promise<IBeerEntity[]> => {
+    const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
+    return response.json()
+}
+
 
 const BeerItemPage = async ({ params: { id } }: Props) => {
     const response = await getData(id);
