@@ -9,11 +9,13 @@ class AppStore {
     state: IAppStoreState = {
         favoriteBeers: new Map<number, IBeerEntity>()
     };
+    controlAddToFavorite = () => {};
 
     constructor() {
         makeAutoObservable(this.state);
         makeObservable(this, {
             setBeersToFavorite: action,
+            removeBeersFromFavorite: action,
         });
     }
 

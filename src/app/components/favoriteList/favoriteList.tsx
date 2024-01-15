@@ -1,5 +1,5 @@
 'use client';
-import { Box, HStack, Popover, Icon, Text, Flex, PopoverTrigger, PopoverContent, PopoverArrow, Image } from "@chakra-ui/react"
+import { Box, HStack, useToast, Popover, Icon, Text, Flex, PopoverTrigger, PopoverContent, PopoverArrow, Image } from "@chakra-ui/react"
 import FavoritesListIcon from '../../../../public/favoritesList.svg';
 import "./styles.css";
 import { appStore } from "@/app/store";
@@ -8,8 +8,7 @@ import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 export const FavoriteList = observer(() => {
-
-    console.log('appStore.getFavoritesBeerList', appStore.getFavoritesBeerList)
+    const toast = useToast();
     return (
         <Popover>
             <PopoverTrigger>
@@ -40,7 +39,16 @@ export const FavoriteList = observer(() => {
                                     />
                                     <Text fontSize={16}>{el.name}</Text>
                                 </HStack >
-                                <Icon as={IoCloseSharp} className="close-icon" onClick={() => appStore.removeBeersFromFavorite(el.id)} />
+                                <Icon as={IoCloseSharp} className="close-icon" onClick={() => {
+                                    appStore.removeBeersFromFavorite(el.id);
+                                    appStore.controlAddToFavorite();
+                                    toast({
+                                        title: `Successfully removed from favorites!`,
+                                        status: 'success',
+                                        position: 'top',
+                                        isClosable: true,
+                                    })
+                                }} />
                             </Flex>
                         )) : 'No content'}
                 </Flex>

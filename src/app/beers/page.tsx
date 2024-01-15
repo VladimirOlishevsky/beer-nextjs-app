@@ -14,7 +14,6 @@ const getData = async (): Promise<IBeerEntity[]> => {
 
 const Beers = async () => {
   const data = await getData();
-  // console.log(data)
   return (
     <div className="main">
       {data.map(el => (

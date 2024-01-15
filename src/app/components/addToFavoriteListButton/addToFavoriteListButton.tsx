@@ -4,7 +4,7 @@ import { IBeerEntity } from "@/app/types/beerType";
 import {
     Button,
     Flex,
-    useToast
+    useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ interface IAddToFavoriteListButtonProps {
 export const AddToFavoriteListButton = ({ beerEntity }: IAddToFavoriteListButtonProps) => {
     const toast = useToast();
     const [state, setState] = useState(beerEntity.inFavorite);
-    console.log(state);
+    appStore.controlAddToFavorite = () => setState(!state)
     return (
         <Flex w={'100%'} justify={'end'} >
             <Button
