@@ -41,7 +41,7 @@ export const FavoriteList = observer(() => {
                                 </HStack >
                                 <Icon as={IoCloseSharp} className="close-icon" onClick={() => {
                                     appStore.removeBeersFromFavorite(el.id);
-                                    appStore.controlAddToFavorite();
+                                    appStore.resetAddToFavoriteButtonState();
                                     toast({
                                         title: `Successfully removed from favorites!`,
                                         status: 'success',

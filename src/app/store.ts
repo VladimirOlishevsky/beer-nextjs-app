@@ -9,7 +9,7 @@ class AppStore {
     state: IAppStoreState = {
         favoriteBeers: new Map<number, IBeerEntity>()
     };
-    controlAddToFavorite = () => {};
+    resetAddToFavoriteButtonState = () => {};
 
     constructor() {
         makeAutoObservable(this.state);
@@ -22,6 +22,12 @@ class AppStore {
     setBeersToFavorite = (value: IBeerEntity): void => {
         value = { ...value, inFavorite: true };
         this.state.favoriteBeers = this.state.favoriteBeers.set(value.id, value) 
+    };
+
+    getUpdatedBeerItem = (value: IBeerEntity): IBeerEntity => {
+        const storeValue = this.state.favoriteBeers.get(value.id);
+        value = { ...value, inFavorite: storeValue?.inFavorite }
+        return value
     };
 
     removeBeersFromFavorite = (id: number): void => {

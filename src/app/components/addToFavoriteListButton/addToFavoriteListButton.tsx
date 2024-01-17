@@ -15,7 +15,7 @@ interface IAddToFavoriteListButtonProps {
 export const AddToFavoriteListButton = ({ beerEntity }: IAddToFavoriteListButtonProps) => {
     const toast = useToast();
     const [state, setState] = useState(beerEntity.inFavorite);
-    appStore.controlAddToFavorite = () => setState(!state)
+    appStore.resetAddToFavoriteButtonState = () => setState(false);
     return (
         <Flex w={'100%'} justify={'end'} >
             <Button

@@ -14,6 +14,7 @@ import {
 import { AddToFavoriteListButton } from "@/app/components/addToFavoriteListButton/addToFavoriteListButton";
 import { useState, useEffect } from "react";
 import "./styles.css";
+import { appStore } from "@/app/store";
 
 const getData = async (id: number): Promise<IBeerEntity[]> => {
     const response = await fetch(`https://api.punkapi.com/v2/beers/${id}`);
@@ -32,7 +33,8 @@ const BeerItemPage = ({ params: { id } }: Props) => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await getData(id);
-            setData(response[0]);
+            const adaptedValue = appStore.getUpdatedBeerItem(response[0]);
+            setData(adaptedValue);
         };
 
         fetchData();
