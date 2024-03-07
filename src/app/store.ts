@@ -3,11 +3,13 @@ import { IBeerEntity } from "./types/beerType";
 
 interface IAppStoreState {
     favoriteBeers: Map<number, IBeerEntity>
+    allBeers: Map<number, IBeerEntity>
 }
 
 class AppStore {
     state: IAppStoreState = {
-        favoriteBeers: new Map<number, IBeerEntity>()
+        favoriteBeers: new Map<number, IBeerEntity>(),
+        allBeers: new Map<number, IBeerEntity>()
     };
     resetAddToFavoriteButtonState = () => {};
 
@@ -16,7 +18,24 @@ class AppStore {
         makeObservable(this, {
             setBeersToFavorite: action,
             removeBeersFromFavorite: action,
+            setAllBeers: action
         });
+    }
+
+    setAllBeers = (values: IBeerEntity[]) => {
+        values.forEach(el => {
+            el = { ...el, inFavorite: false };
+            this.state.allBeers.set(el.id, el)
+        })
+
+        console.log("this.state", this.state.allBeers)
+    }
+    
+    getFromAllBeers = (id: number) => {
+        console.log("id", id)
+        const value = this.state.allBeers.get(Number(id));
+        console.log("value", value)
+        return value
     }
 
     setBeersToFavorite = (value: IBeerEntity): void => {
